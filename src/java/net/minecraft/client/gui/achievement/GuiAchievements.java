@@ -21,8 +21,6 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import static org.lwjgl.opengl.GL11.*;
-
 public class GuiAchievements extends GuiScreen implements IProgressMeter
 {
     private static final int field_146572_y = AchievementList.minDisplayColumn * 24 - 112;
