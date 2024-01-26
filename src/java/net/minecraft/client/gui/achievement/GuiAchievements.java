@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiOptionButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.IProgressMeter;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -22,6 +19,9 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class GuiAchievements extends GuiScreen implements IProgressMeter
 {
@@ -174,7 +174,6 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter
                 this.field_146573_x = (double)(field_146560_B - 1);
             }
 
-            this.drawDefaultBackground();
             this.drawAchievementScreen(mouseX, mouseY, partialTicks);
             GlStateManager.disableLighting();
             GlStateManager.disableDepth();
@@ -251,6 +250,12 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter
         int i1 = k + 16;
         int j1 = l + 17;
         this.zLevel = 0.0F;
+        int x = this.width / 2 - 127;
+        int y = this.height / 2 - 99;
+        int scaleFactor = new ScaledResolution(mc).getScaleFactor();
+        GL11.glPopMatrix();
+        GL11.glEnable(3089);
+        GL11.glScissor(x * scaleFactor, Minecraft.getMinecraft().displayHeight - (y + 185) * scaleFactor, 254 * scaleFactor, (185) * scaleFactor);
         GlStateManager.depthFunc(518);
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)i1, (float)j1, -200.0F);
@@ -263,11 +268,6 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter
         int l1 = j + 288 >> 4;
         int i2 = (i + 288) % 16;
         int j2 = (j + 288) % 16;
-        int k2 = 4;
-        int l2 = 8;
-        int i3 = 10;
-        int j3 = 22;
-        int k3 = 37;
         Random random = new Random();
         float f = 16.0F / this.field_146570_r;
         float f1 = 16.0F / this.field_146570_r;
@@ -469,6 +469,8 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter
         GlStateManager.enableBlend();
         GlStateManager.popMatrix();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glDisable(3089);
+        GL11.glPushMatrix();
         this.mc.getTextureManager().bindTexture(ACHIEVEMENT_BACKGROUND);
         this.drawTexturedModalRect(k, l, 0, 0, this.field_146555_f, this.field_146557_g);
         this.zLevel = 0.0F;

@@ -22,7 +22,6 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.demo.DemoWorldServer;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.WorldInfo;
 import net.optifine.CustomPanorama;
@@ -209,19 +208,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 1, I18n.format("menu.multiplayer", new Object[0])));
     }
 
-    private void addDemoButtons(int p_73972_1_, int p_73972_2_)
-    {
-        this.buttonList.add(new GuiButton(11, this.width / 2 - 100, p_73972_1_, I18n.format("menu.playdemo", new Object[0])));
-        this.buttonList.add(this.buttonResetDemo = new GuiButton(12, this.width / 2 - 100, p_73972_1_ + p_73972_2_ * 1, I18n.format("menu.resetdemo", new Object[0])));
-        ISaveFormat isaveformat = this.mc.getSaveLoader();
-        WorldInfo worldinfo = isaveformat.getWorldInfo("Demo_World");
-
-        if (worldinfo == null)
-        {
-            this.buttonResetDemo.enabled = false;
-        }
-    }
-
     protected void actionPerformed(GuiButton button) throws IOException
     {
         if (button.id == 0)
@@ -247,11 +233,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         if (button.id == 4)
         {
             this.mc.shutdown();
-        }
-
-        if (button.id == 11)
-        {
-            this.mc.launchIntegratedServer("Demo_World", "Demo_World", DemoWorldServer.demoWorldSettings);
         }
 
         if (button.id == 12)
