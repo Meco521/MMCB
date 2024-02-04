@@ -127,6 +127,7 @@ public abstract class Entity implements ICommandSender
     private boolean invulnerable;
     protected UUID entityUniqueID;
     private final CommandResultStats cmdResultStats;
+    public boolean safewalk;
 
     public int getEntityId()
     {
@@ -458,7 +459,7 @@ public abstract class Entity implements ICommandSender
             double d3 = x;
             double d4 = y;
             double d5 = z;
-            boolean flag = this.onGround && this.isSneaking() && this instanceof EntityPlayer;
+            boolean flag =((this.onGround && this.isSneaking()) || safewalk) && this instanceof EntityPlayer;
 
             if (flag)
             {
@@ -1330,6 +1331,8 @@ public abstract class Entity implements ICommandSender
     {
         try
         {
+            AxisAlignedBB aabb = this.getEntityBoundingBox();
+            tagCompund.setTag("AABB", this.newDoubleNBTList(aabb.minX, aabb.minY, aabb.minZ, aabb.maxX, aabb.maxY, aabb.maxZ));
             tagCompund.setTag("Pos", this.newDoubleNBTList(new double[] {this.posX, this.posY, this.posZ}));
             tagCompund.setTag("Motion", this.newDoubleNBTList(new double[] {this.motionX, this.motionY, this.motionZ}));
             tagCompund.setTag("Rotation", this.newFloatNBTList(new float[] {this.rotationYaw, this.rotationPitch}));
@@ -1443,6 +1446,13 @@ public abstract class Entity implements ICommandSender
             if (this.shouldSetPosAfterLoading())
             {
                 this.setPosition(this.posX, this.posY, this.posZ);
+            }
+
+            if (tagCompund.hasKey("AABB")) {
+                NBTTagList aabb = tagCompund.getTagList("AABB", 6);
+                this.setEntityBoundingBox(new AxisAlignedBB(aabb.getDoubleAt(0), aabb.getDoubleAt(1),
+                        aabb.getDoubleAt(2), aabb.getDoubleAt(3),
+                        aabb.getDoubleAt(4), aabb.getDoubleAt(5)));
             }
         }
         catch (Throwable throwable)
