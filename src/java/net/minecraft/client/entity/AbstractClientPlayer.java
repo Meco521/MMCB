@@ -209,8 +209,8 @@ public abstract class AbstractClientPlayer extends EntityPlayer
     }
 
     public Vec3 getLook(final float partialTicks) {
-        float yaw = this.lockYaw;
-        float pitch = this.lockPitch;
+        float yaw = this.rotationYaw;
+        float pitch = this.rotationPitch;
         return this.getVectorForRotation(pitch, yaw);
     }
 }

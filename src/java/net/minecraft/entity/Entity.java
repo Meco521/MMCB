@@ -69,8 +69,6 @@ public abstract class Entity implements ICommandSender
     public double motionX;
     public double motionY;
     public double motionZ;
-    public float lockYaw;
-    public float lockPitch;
     public float rotationYaw;
     public float rotationPitch;
     public float prevRotationYaw;
@@ -262,10 +260,7 @@ public abstract class Entity implements ICommandSender
 
     public void onUpdate()
     {
-        this.lockYaw = this.rotationYaw;
-        this.lockPitch = this.rotationPitch;
         this.onEntityUpdate();
-
     }
 
     public void onEntityUpdate()
