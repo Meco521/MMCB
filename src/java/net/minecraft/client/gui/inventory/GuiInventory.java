@@ -90,6 +90,7 @@ public class GuiInventory extends InventoryEffectRenderer
         ent.renderYawOffset = (float)Math.atan((double)(mouseX / 40.0F)) * 20.0F;
         ent.rotationYaw = (float)Math.atan((double)(mouseX / 40.0F)) * 40.0F;
         ent.rotationPitch = -((float)Math.atan((double)(mouseY / 40.0F))) * 20.0F;
+        ent.rotationPitchHead = -((float)Math.atan((double)(mouseY / 40.0F))) * 20.0F;
         ent.rotationYawHead = ent.rotationYaw;
         ent.prevRotationYawHead = ent.rotationYaw;
         GlStateManager.translate(0.0F, 0.0F, 0.0F);
@@ -101,6 +102,7 @@ public class GuiInventory extends InventoryEffectRenderer
         ent.renderYawOffset = f;
         ent.rotationYaw = f1;
         ent.rotationPitch = f2;
+        ent.rotationPitchHead = f2;
         ent.prevRotationYawHead = f3;
         ent.rotationYawHead = f4;
         GlStateManager.popMatrix();

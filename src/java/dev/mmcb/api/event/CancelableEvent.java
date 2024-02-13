@@ -1,3 +1,8 @@
+/**
+ *
+ * @author Meco
+ * @date 2/13/2024
+ */
 package dev.mmcb.api.event;
 
 public class CancelableEvent {
