@@ -1,4 +1,4 @@
-# My Minecraft ClientBase
+# My Minecraft Client Base
 
 ## Introduction
 [MMCB](https://github.com/Meco521/MMCB) 为 My Minecraft Client Base首字母缩写，我们为所有 创作者/开发者/玩家 提供优化过的Minecraft底层，以便你们能够更轻松的进行 模组制作/游玩
@@ -15,6 +15,11 @@
 2.We do not promote any cheating or unethical gaming behavior.
 
 Please do so at your own risk and be aware of the possible consequences.
+
+## Feedback Welcomed
+如果您遇到任何问题或发现任何漏洞，我们非常希望能听到您的反馈。我们恳请您在发现问题时，能够截图并发送至我们的邮箱：meco521@outlook.com。
+
+We are eager to receive your feedback if you encounter any problems or detect any vulnerabilities. We sincerely request that you take a screenshot of the problem and send it to our email address: meco521@outlook.com.
 
 ## License
 [《我的世界》服务条款和最终用户许可协议](https://www.minecraft.net/terms/r1)
