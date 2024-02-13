@@ -25,3 +25,8 @@ We are eager to receive your feedback if you encounter any problems or detect an
 [《我的世界》服务条款和最终用户许可协议](https://www.minecraft.net/terms/r1)
 
 [Minecraft Terms of Service and End User License Agreement](https://www.minecraft.net/terms/r1)
+
+## Bugs
+1.背包中的玩家模型异常。
+
+1.The in-inventory player model is abnormal.
