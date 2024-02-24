@@ -1,22 +1,24 @@
 /**
- *
- * @author Meco
- * @date 2/13/2024
+ * @author Aq1u
+ * @date 2/22/2024
  */
-package dev.mmcb.api.event.manager;
+package dev.mmcb.api.event.handler;
 
 import dev.mmcb.api.event.CancelableEvent;
+import dev.mmcb.api.event.component.Priority;
+import lombok.Getter;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 
+@Getter
 public class Listener {
     private MethodHandle handler;
     private final Object parent;
-    private final byte priority;
+    private final int priority;
 
-    public Listener(Method method, Object parent, byte priority) {
+    public Listener(Method method, Object parent, Priority priority) {
         if (!method.isAccessible()) {
             method.setAccessible(true);
         }
@@ -32,18 +34,7 @@ public class Listener {
             e.printStackTrace();
         }
         this.parent = parent;
-        this.priority = priority;
+        this.priority = priority.getValue();
     }
 
-    public MethodHandle getHandler() {
-        return handler;
-    }
-
-    public Object getParent() {
-        return parent;
-    }
-
-    public byte getPriority() {
-        return priority;
-    }
 }

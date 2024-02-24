@@ -1,22 +1,18 @@
 /**
- *
- * @author Meco
- * @date 2/13/2024
+ * @author Aq1u
+ * @date 2/22/2024
  */
 package dev.mmcb.api.event;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class CancelableEvent {
     private boolean cancel;
 
     public void cancelEvent() {
         this.cancel = true;
-    }
-
-    public boolean isCancel() {
-        return cancel;
-    }
-
-    public void setCancel(boolean cancel) {
-        this.cancel = cancel;
     }
 }

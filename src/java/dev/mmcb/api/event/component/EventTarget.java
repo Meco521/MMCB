@@ -1,9 +1,8 @@
 /**
- *
- * @author Meco
- * @date 2/13/2024
+ * @author Aq1u
+ * @date 2/22/2024
  */
-package dev.mmcb.api.event.manager;
+package dev.mmcb.api.event.component;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,5 +12,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EventTarget {
-    byte priority() default 2;
+    // Events with lower values will be prioritized.
+    Priority priority() default Priority.Normal;
 }
