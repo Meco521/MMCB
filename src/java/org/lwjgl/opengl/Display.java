@@ -6,6 +6,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
+import org.lwjgl.util.WindowHelper;
 import org.lwjgl.glfw.*;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCharCallback;
@@ -241,6 +242,8 @@ public class Display {
                 latestResized = true;
                 latestWidth = width;
                 latestHeight = height;
+
+                WindowHelper.windowMinimized = width == 0 || height == 0;
             }
         };
 

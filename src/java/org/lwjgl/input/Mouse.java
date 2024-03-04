@@ -103,6 +103,7 @@ public class Mouse {
     }
 
     public static void setGrabbed(boolean grab) {
+        Mouse.poll();
         GLFW.glfwSetInputMode(Display.getWindow(),
                 GLFW.GLFW_CURSOR,
                 grab ? GLFW.GLFW_CURSOR_DISABLED : GLFW.GLFW_CURSOR_NORMAL);
