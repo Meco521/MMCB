@@ -3129,18 +3129,17 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
         else
         {
-            ChunkProviderClient ichunkprovider = (ChunkProviderClient) this.theWorld.getChunkProvider();
+            IChunkProvider ichunkprovider = this.theWorld.getChunkProvider();
 
             if (ichunkprovider == null)
-            {
                 return 0;
-            }
             else
             {
                 if (ichunkprovider != this.worldChunkProvider)
                 {
                     this.worldChunkProvider = ichunkprovider;
-                    this.worldChunkProviderMap = ichunkprovider.chunkMapping;
+                    ChunkProviderClient ichunkprovider2 = (ChunkProviderClient) this.theWorld.getChunkProvider();
+                    this.worldChunkProviderMap = ichunkprovider2.chunkMapping;
                 }
 
                 return this.worldChunkProviderMap == null ? 0 : this.worldChunkProviderMap.getNumHashElements();
