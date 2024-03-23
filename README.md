@@ -1,32 +1,65 @@
-# My Minecraft Client Base
+# MMCB - Minecraft Modified Core Base
 
-## Introduction
-[MMCB](https://github.com/Meco521/MMCB) 为 My Minecraft Client Base首字母缩写，我们为所有 创作者/开发者/玩家 提供优化过的Minecraft底层，以便你们能够更轻松的进行 模组制作/游玩
+## 中文
+MMCB 是我的一个Minecraft优化版底层开源项目。该项目旨在通过修复原版Minecraft中的部分BUG以及提升整体性能，为Minecraft社区提供一个更加稳定、高效的运行环境。
 
-[MMCB](https://github.com/Meco521/MMCB) stands for My Minecraft Client Base. We offer an optimized Minecraft foundation to all creators, developers, and players, enabling you to create mods or enjoy the game more effortlessly.
+### 项目特点
+1. BUG修复：针对原版Minecraft中存在的一些已知问题进行了修复，提升了游戏的稳定性。
+2. 性能优化：对源代码进行了深入优化，提升了游戏的帧率和响应速度，使游戏体验更加流畅。
+3. 合法合规：此项目坚决不提倡、不包含任何外挂或其它不合法内容，旨在维护游戏的公平性和玩家的权益。
 
-## Disclaimer
-1.此项目只在[GitHub](https://github.com)开放。
-2.我们不提倡任何作弊或不道德游戏行为。
+### 如何使用
+1. 克隆项目：首先，你需要从GitHub上克隆此项目的代码库。
+2. 编译：使用Java开发工具（如Eclipse或IntelliJ IDEA）导入项目并编译源代码。
+3. 运行：编译完成后，你可以运行MMCB版本的Minecraft，并享受优化后的游戏体验。
 
-请自行承担风险，并注意可能的后果。
+### 贡献与反馈
+如果你在使用MMCB过程中发现了任何问题，或者你有任何优化建议，欢迎通过GitHub的Issue系统向我们反馈。我们也非常欢迎开发者们为MMCB贡献代码，一起完善这个项目。
 
-1.This project is only open on [GitHub](https://github.com).
-2.We do not promote any cheating or unethical gaming behavior.
+### 免责声明
 
-Please do so at your own risk and be aware of the possible consequences.
+本软件（以下简称“软件”）仅供学习、研究和交流使用。使用者应自行承担使用本软件的风险，并对因使用本软件而造成的任何直接或间接损失负责。对于因软件缺陷、错误或不当使用导致的任何损害，软件作者不承担任何责任。
 
-## Feedback Welcomed
-如果您遇到任何问题或发现任何漏洞，我们非常希望能听到您的反馈。我们恳请您在发现问题时，能够截图并发送至我们的邮箱：meco521@outlook.com。
+在使用本软件之前，使用者应确保已经了解其功能、限制和风险，并遵循相应的操作规范。对于因未遵循操作规范或超出软件功能范围而导致的任何问题，软件作者不承担任何责任。
 
-We are eager to receive your feedback if you encounter any problems or detect any vulnerabilities. We sincerely request that you take a screenshot of the problem and send it to our email address: meco521@outlook.com.
+本软件可能包含第三方代码或库，使用者在使用前应确保已经遵守了相关的开源协议或授权要求，并对由此产生的任何法律问题自行负责。
 
-## License
-[《我的世界》服务条款和最终用户许可协议](https://www.minecraft.net/terms/r1)
+### 许可证声明
 
-[Minecraft Terms of Service and End User License Agreement](https://www.minecraft.net/terms/r1)
+本软件采用[MIT许可证] 进行授权。根据该协议，使用者有权在遵守协议条款的前提下，自由地使用、复制、修改、合并、发布、分发、再授权和/或销售本软件的副本。
 
-## Bugs
-1.背包中的玩家模型异常。
+使用者在使用、修改或分发本软件时，必须保留本软件中的版权声明、许可证声明和其他相关信息。此外，使用者应确保遵循开源协议中关于商业使用的相关规定，如需将本软件用于商业目的，应遵守相应的许可要求。
 
-1.The in-inventory player model is abnormal.
+对于任何违反本免责声明和许可证声明的行为，软件作者保留追究法律责任的权利。
+
+## English
+MMCB is my open-source project for an optimized version of Minecraft's underlying codebase. The goal of this project is to provide a more stable and efficient runtime environment for the Minecraft community by fixing some bugs in the original Minecraft and enhancing overall performance.
+
+### Project Features
+1. Bug Fixes: Addresses known issues in the original Minecraft, improving game stability.
+2. Performance Optimization: Deep optimizations have been made to the source code, enhancing frame rates and response times for a smoother gaming experience.
+3. Legal Compliance: This project strictly does not promote or contain any cheats or other illegal content, aiming to maintain game fairness and protect players' rights.
+
+### How to Use
+1. Clone the Project: First, you need to clone the code repository of this project from GitHub.
+2. Compile: Use Java development tools (such as Eclipse or IntelliJ IDEA) to import the project and compile the source code.
+3. Run: After compilation, you can run the MMCB version of Minecraft and enjoy the optimized gaming experience.
+
+### Contributions and Feedback
+If you encounter any issues while using MMCB or have any optimization suggestions, feel free to provide feedback through GitHub's Issue system. We also welcome developers to contribute code to MMCB and help improve the project together.
+
+### Disclaimer
+
+This software (hereinafter referred to as "the Software") is provided solely for learning, research, and exchange purposes. Users shall bear the risks associated with the use of the Software and be responsible for any direct or indirect losses arising from its use. The author of the Software shall not be held liable for any damages caused by software defects, errors, or improper use.
+
+Before using the Software, users should ensure that they understand its functions, limitations, and risks, and follow the corresponding operational specifications. The author of the Software shall not be held responsible for any issues arising from failure to follow operational specifications or exceeding the scope of the Software's functionality.
+
+The Software may contain third-party code or libraries. Users should ensure that they comply with the relevant open-source agreements or authorization requirements before using them and be responsible for any legal issues arising therefrom.
+
+### License Statement
+
+This Software is licensed under [MIT License]. Under the terms of this license, users are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, subject to compliance with the license terms.
+
+When using, modifying, or distributing the Software, users must retain the copyright notice, license statement, and other relevant information contained in the Software. Additionally, users should ensure compliance with the relevant provisions of the open-source license regarding commercial use. If the Software is to be used for commercial purposes, users should adhere to the corresponding licensing requirements.
+
+The author of the Software reserves the right to pursue legal liability for any violations of this Disclaimer and License Statement.
