@@ -13,14 +13,25 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 import java.util.Map.Entry;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.GuardianSound;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.gui.GuiDisconnected;
+import net.minecraft.client.gui.GuiDownloadTerrain;
+import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraft.client.gui.GuiMerchant;
+import net.minecraft.client.gui.GuiMultiplayer;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiScreenBook;
+import net.minecraft.client.gui.GuiScreenDemo;
+import net.minecraft.client.gui.GuiWinGame;
+import net.minecraft.client.gui.GuiYesNo;
+import net.minecraft.client.gui.GuiYesNoCallback;
+import net.minecraft.client.gui.IProgressMeter;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.multiplayer.ServerData;
@@ -178,7 +189,15 @@ import net.minecraft.tileentity.TileEntityFlowerPot;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.tileentity.TileEntitySkull;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.IChatComponent;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.StringUtils;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.WorldProviderSurface;
@@ -454,11 +473,11 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         double d2 = (double)packetIn.getZ() / 32.0D;
         float f = (float)(packetIn.getYaw() * 360) / 256.0F;
         float f1 = (float)(packetIn.getPitch() * 360) / 256.0F;
-        EntityOtherPlayerMP entityotherplayermp = new EntityOtherPlayerMP(this.gameController.theWorld, this.getPlayerInfo(packetIn.getPlayerId()).getGameProfile());
+        EntityOtherPlayerMP entityotherplayermp = new EntityOtherPlayerMP(this.gameController.theWorld, this.getPlayerInfo(packetIn.getPlayer()).getGameProfile());
         entityotherplayermp.prevPosX = entityotherplayermp.lastTickPosX = (double)(entityotherplayermp.serverPosX = packetIn.getX());
         entityotherplayermp.prevPosY = entityotherplayermp.lastTickPosY = (double)(entityotherplayermp.serverPosY = packetIn.getY());
         entityotherplayermp.prevPosZ = entityotherplayermp.lastTickPosZ = (double)(entityotherplayermp.serverPosZ = packetIn.getZ());
-        int i = packetIn.getCurrentItem();
+        int i = packetIn.getCurrentItemID();
 
         if (i == 0)
         {
@@ -470,8 +489,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         }
 
         entityotherplayermp.setPositionAndRotation(d0, d1, d2, f, f1);
-        this.clientWorldController.addEntityToWorld(packetIn.getEntityId(), entityotherplayermp);
-        List<DataWatcher.WatchableObject> list = packetIn.getWatchersObjects();
+        this.clientWorldController.addEntityToWorld(packetIn.getEntityID(), entityotherplayermp);
+        List<DataWatcher.WatchableObject> list = packetIn.func_148944_c();
 
         if (list != null)
         {
@@ -681,7 +700,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         }
     }
 
-    public void addToSendQueue(Packet<?> p_147297_1_)
+    public void addToSendQueue(Packet p_147297_1_)
     {
         this.netManager.sendPacket(p_147297_1_);
     }
@@ -1006,19 +1025,24 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         }
     }
 
-    public void handleConfirmTransaction(final S32PacketConfirmTransaction packetIn) {
-        PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, (IThreadListener)this.gameController);
+    public void handleConfirmTransaction(S32PacketConfirmTransaction packetIn)
+    {
+        PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
         Container container = null;
-        final EntityPlayer entityplayer = this.gameController.thePlayer;
-        if (packetIn.getWindowId() == 0) {
+        EntityPlayer entityplayer = this.gameController.thePlayer;
+
+        if (packetIn.getWindowId() == 0)
+        {
             container = entityplayer.inventoryContainer;
         }
-        else if (packetIn.getWindowId() == entityplayer.openContainer.windowId) {
+        else if (packetIn.getWindowId() == entityplayer.openContainer.windowId)
+        {
             container = entityplayer.openContainer;
         }
-        if (container != null && !packetIn.func_148888_e()) {
-            final C0FPacketConfirmTransaction packet = new C0FPacketConfirmTransaction(packetIn.getWindowId(), packetIn.getActionNumber(), true);
-            this.addToSendQueue(packet);
+
+        if (container != null && !packetIn.func_148888_e())
+        {
+            this.addToSendQueue(new C0FPacketConfirmTransaction(packetIn.getWindowId(), packetIn.getActionNumber(), true));
         }
     }
 
@@ -1258,8 +1282,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
         for (Entry<StatBase, Integer> entry : packetIn.func_148974_c().entrySet())
         {
-            StatBase statbase = (StatBase)entry.getKey();
-            int i = ((Integer)entry.getValue()).intValue();
+            StatBase statbase = entry.getKey();
+            int i = entry.getValue();
 
             if (statbase.isAchievement() && i > 0)
             {
@@ -1310,6 +1334,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
     public void handleCombatEvent(S42PacketCombatEvent packetIn)
     {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
+        this.clientWorldController.getEntityByID(packetIn.field_179775_c);
     }
 
     public void handleServerDifficulty(S41PacketServerDifficulty packetIn)

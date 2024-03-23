@@ -27,9 +27,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import javax.imageio.ImageIO;
 
-import dev.mmcb.api.event.handler.EventManager;
-import me.meco.core.Core;
-import me.meco.core.events.TickEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.audio.MusicTicker;
@@ -171,7 +168,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private final File fileResourcepacks;
     private final PropertyMap twitchDetails;
     private final PropertyMap profileProperties;
-    public FontRenderer fontRenderer;
     private ServerData currentServerData;
     private TextureManager renderEngine;
     private static Minecraft theMinecraft;
@@ -277,8 +273,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
         ImageIO.setUseCache(false);
         Bootstrap.register();
-
-        Core.instance.init();
     }
 
     public void run()
@@ -1498,7 +1492,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     public void runTick() throws IOException
     {
-        EventManager.call(new TickEvent());
         if (this.rightClickDelayTimer > 0)
         {
             --this.rightClickDelayTimer;

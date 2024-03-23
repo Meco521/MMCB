@@ -32,8 +32,6 @@ import java.net.SocketAddress;
 import java.util.Queue;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import javax.crypto.SecretKey;
-
-import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.CryptManager;
@@ -137,19 +135,17 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
         this.closeChannel(chatcomponenttranslation);
     }
 
-    @Override
-    protected void channelRead0(final ChannelHandlerContext p_channelRead0_1_, final Packet p_channelRead0_2_) {
-        if (this.channel.isOpen()) {
-            try {
-                final Packet<INetHandler> packet = (Packet<INetHandler>)p_channelRead0_2_;
-                if (p_channelRead0_2_ instanceof S3FPacketCustomPayload) {
-                    packet.processPacket(this.packetListener);
-                }
-                else {
-                    packet.processPacket(this.packetListener);
-                }
+    protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, Packet p_channelRead0_2_) throws Exception
+    {
+        if (this.channel.isOpen())
+        {
+            try
+            {
+                p_channelRead0_2_.processPacket(this.packetListener);
             }
-            catch (Exception  ex) {
+            catch (ThreadQuickExitException var4)
+            {
+                ;
             }
         }
     }
@@ -325,16 +321,22 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
             lazyloadbase = CLIENT_NIO_EVENTLOOP;
         }
 
-        (new Bootstrap()).group(lazyloadbase.getValue()).handler(new ChannelInitializer() {
-            protected void initChannel(Channel p_initChannel_1_) {
-                try {
-                    p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, true);
-                } catch (ChannelException ignored) {
+        ((Bootstrap)((Bootstrap)((Bootstrap)(new Bootstrap()).group((EventLoopGroup)lazyloadbase.getValue())).handler(new ChannelInitializer<Channel>()
+        {
+            protected void initChannel(Channel p_initChannel_1_) throws Exception
+            {
+                try
+                {
+                    p_initChannel_1_.config().setOption(ChannelOption.TCP_NODELAY, Boolean.valueOf(true));
+                }
+                catch (ChannelException var3)
+                {
+                    ;
                 }
 
-                p_initChannel_1_.pipeline().addLast("timeout", new ReadTimeoutHandler(30)).addLast("splitter", new MessageDeserializer2()).addLast("decoder", new MessageDeserializer(EnumPacketDirection.CLIENTBOUND)).addLast("prepender", new MessageSerializer2()).addLast("encoder", new MessageSerializer(EnumPacketDirection.SERVERBOUND)).addLast("packet_handler", networkmanager);
+                p_initChannel_1_.pipeline().addLast((String)"timeout", (ChannelHandler)(new ReadTimeoutHandler(30))).addLast((String)"splitter", (ChannelHandler)(new MessageDeserializer2())).addLast((String)"decoder", (ChannelHandler)(new MessageDeserializer(EnumPacketDirection.CLIENTBOUND))).addLast((String)"prepender", (ChannelHandler)(new MessageSerializer2())).addLast((String)"encoder", (ChannelHandler)(new MessageSerializer(EnumPacketDirection.SERVERBOUND))).addLast((String)"packet_handler", (ChannelHandler)networkmanager);
             }
-        }).channel(oclass).connect(address, serverPort).syncUninterruptibly();
+        })).channel(oclass)).connect(address, serverPort).syncUninterruptibly();
         return networkmanager;
     }
 

@@ -3,8 +3,6 @@ package net.minecraft.network.play.server;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
-
-import lombok.Getter;
 import net.minecraft.entity.DataWatcher;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -14,7 +12,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.MathHelper;
 
-@Getter
 public class S0CPacketSpawnPlayer implements Packet<INetHandlerPlayClient>
 {
     private int entityId;
@@ -26,7 +23,7 @@ public class S0CPacketSpawnPlayer implements Packet<INetHandlerPlayClient>
     private byte pitch;
     private int currentItem;
     private DataWatcher watcher;
-    private List<DataWatcher.WatchableObject> watchersObjects;
+    private List<DataWatcher.WatchableObject> field_148958_j;
 
     public S0CPacketSpawnPlayer()
     {
@@ -56,7 +53,7 @@ public class S0CPacketSpawnPlayer implements Packet<INetHandlerPlayClient>
         this.yaw = buf.readByte();
         this.pitch = buf.readByte();
         this.currentItem = buf.readShort();
-        this.watchersObjects = DataWatcher.readWatchedListFromPacketBuffer(buf);
+        this.field_148958_j = DataWatcher.readWatchedListFromPacketBuffer(buf);
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException
@@ -77,13 +74,53 @@ public class S0CPacketSpawnPlayer implements Packet<INetHandlerPlayClient>
         handler.handleSpawnPlayer(this);
     }
 
-    public List<DataWatcher.WatchableObject> getWatchersObjects()
+    public List<DataWatcher.WatchableObject> func_148944_c()
     {
-        if (this.watchersObjects == null)
+        if (this.field_148958_j == null)
         {
-            this.watchersObjects = this.watcher.getAllWatched();
+            this.field_148958_j = this.watcher.getAllWatched();
         }
 
-        return this.watchersObjects;
+        return this.field_148958_j;
+    }
+
+    public int getEntityID()
+    {
+        return this.entityId;
+    }
+
+    public UUID getPlayer()
+    {
+        return this.playerId;
+    }
+
+    public int getX()
+    {
+        return this.x;
+    }
+
+    public int getY()
+    {
+        return this.y;
+    }
+
+    public int getZ()
+    {
+        return this.z;
+    }
+
+    public byte getYaw()
+    {
+        return this.yaw;
+    }
+
+    public byte getPitch()
+    {
+        return this.pitch;
+    }
+
+    public int getCurrentItemID()
+    {
+        return this.currentItem;
     }
 }

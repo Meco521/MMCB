@@ -9,7 +9,7 @@ import net.minecraft.network.handshake.INetHandlerHandshakeServer;
 public class C00Handshake implements Packet<INetHandlerHandshakeServer>
 {
     private int protocolVersion;
-    public String ip;
+    private String ip;
     private int port;
     private EnumConnectionState requestedState;
 
